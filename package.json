@@ -1,0 +1,17 @@
+{
+  "name": "SESLab",
+  "version": "0.2.0",
+  "description": "SESLab",
+  "main": "app.js",
+  "engines" : { 
+      "node" : "0.10.31",
+      "npm" : ">=1.4"
+  },
+  "authors": [ "Adrián Sánchez"],
+  "dependencies": {
+    "express": "3.x",
+    "cookie-parser": "*",
+    "body-parser": "*"
+  }
+}
+
