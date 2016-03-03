@@ -13,7 +13,6 @@
 {
 	z-index: 1;
 	width: 1024px;
-	min-height: 3064px;
 	background-image: none;
 	border-style: none;
 	border-color: #000000;
@@ -1138,3 +1137,6 @@ body
 	clear: both;
 }
 
+.hidden:{
+	display: none:!important;
+};
