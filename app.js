@@ -15,7 +15,7 @@ app.use(express.static(__dirname + '/webpage'));
 
 
 app.get('*', function (req, res) {
-    res.redirect('../', 404);
+    res.redirect('/index.html', 404);
 });
 
 // Listening port
