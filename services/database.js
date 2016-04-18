@@ -14,6 +14,7 @@ var uristring =
   process.env.MONGOLAB_URI||
   'mongodb://localhost/SESLab-Curso';
 
+var db;
 
 mongo.MongoClient.connect(uristring, function(err, database) {
     if(!err) {
@@ -65,11 +66,10 @@ exports.removeSchedule = function(req, res) {
 
 //CRUD Usuarios
 exports.getUsers = function(req,res) {
-    res.send(200, {doc:db});
-    /*db.collection('Users').find({}).toArray(function(err, doc){
+    db.collection('Users').find({}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
-    })*/
+    })
 }
 
 exports.newUsers = function(req, res) {
