@@ -25,10 +25,7 @@ Day of Week: 0-6*/
  
 var app = express();
 app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(bodyParser.json());
+app.use(bodyParser());
 //app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
 app.use(express.static(__dirname + '/webpage'));
 app.use('/inscripcion', express.static(__dirname + '/register'));
