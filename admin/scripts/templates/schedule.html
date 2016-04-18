@@ -1,0 +1,237 @@
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-header">
+    <a href="#home" class="navbar-brand">Administrar Curso - Horario</a>
+  </div>
+</div><!-- /.container -->
+
+<div class="row col-xs-12 center">
+	<button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect" data-toggle="modal" data-target="#scheduleModal">
+	  Añadir Horario
+	</button>
+	<br>
+	<br><div class="tableDiv">
+    <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+      <thead>
+        <tr>
+          <th class="mdl-data-table__cell--non-numeric">Código</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Tipo</th>
+          <th>Cantidad</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Editar</th>
+          <th>Eliminar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% var modalId = 0;
+         _.each(models, function(i) {%>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"><%=i.attributes.code%></td>
+            <td><%=i.attributes.name%></td>
+            <td><%=i.attributes.description%></td>
+            <td><%=i.attributes.type%></td>
+            <td><%=i.attributes.quantity%></td>
+            <td><%=i.attributes.date%></td>
+            <td><%=i.attributes.hour%></td>    
+            <td>
+             <span type="button" class="edit" value=<%=modalId%> data-toggle="modal" data-target=<%='#'+modalId%>><a class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="right" title="Editar" data-original-title="Editar"></a> </span>
+            </td>
+              <td><li type="button" class="delete" id=<%=i.attributes._id+"Delete"%>><a class="glyphicon glyphicon-remove" data-toggle="tooltip" data-placement="right" title="Eliminar" data-original-title="Eliminar"></a></li></td>
+          </tr>
+      <%modalId++;});%>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="closeModal">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Añadir Horario</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Código</label>
+          </div> 
+          <div class="col-xs-4 col-sm-4">
+            <input type="text" class="scheduleCode" maxlength="40"></input> 
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Nombre</label>
+          </div> 
+          <div class="col-xs-4 col-sm-4">
+            <input type="text" class="scheduleName" maxlength="40"></input> 
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Descripción</label>
+          </div> 
+          <div class="col-xs-5 col-sm-5">
+             <textarea rows="3" cols="40" class="scheduleDescription"></textarea> 
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Tipo</label>
+          </div> 
+          <div class="col-xs-4 col-sm-4">
+            <input type="number" class="scheduleType" min="1" value="1"></input>
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Cantidad</label>
+          </div> 
+          <div class="col-xs-4 col-sm-4">
+            <input type="number" class="scheduleQuantity" min="1" value="1"></input>
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Fecha</label>
+          </div> 
+          <div class="col-xs-6 col-sm-6">
+            <input type="text" class="datepicker" id="scheduleDate">
+          </div>
+          <br>
+          <br>
+        </div>
+        <div class="row">       
+          <div class="col-xs-5 col-sm-5">            
+            <label>Hora</label>
+          </div> 
+          <div class="col-xs-4 col-sm-4">
+            <input type="number" class="scheduleHour" min="8" max="18" value="8"></input>
+          </div>
+          <br>
+          <br>
+        </div>
+      </div>  
+      <div class="modal-footer">        
+        <button type="button" class="btn btn-default closeModal" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary saveSchedule">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% var modalID = 0;
+_.each(models, function(i) {%>
+  <div class="modal fade" id=<%=modalID%> tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" class="closeModal">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Editar Horario</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Código</label>
+            </div> 
+            <div class="col-xs-4 col-sm-4">
+              <input type="text" class=<%=modalID + "scheduleCode"%> maxlength="40" value="<%=i.attributes.code%>"></input> 
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Nombre</label>
+            </div> 
+            <div class="col-xs-4 col-sm-4">
+              <input type="text" class=<%=modalID + "scheduleName"%> maxlength="40" value="<%=i.attributes.name%>"></input> 
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Descripción</label>
+            </div> 
+            <div class="col-xs-5 col-sm-5">
+              <textarea rows="4" cols="50" class=<%=modalID + "scheduleDescription"%>><%=i.attributes.description%></textarea> 
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Tipo</label>
+            </div> 
+            <div class="col-xs-4 col-sm-4">
+              <input type="number" class=<%=modalID + "scheduleType"%> min="1" value=<%=i.attributes.type%>></input> 
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Cantidad</label>
+            </div> 
+            <div class="col-xs-4 col-sm-4">
+              <input type="number" class=<%=modalID + "scheduleQuantity"%> min="1" value=<%=i.attributes.quantity%>></input> 
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Fecha</label>
+            </div> 
+            <div class="col-xs-6 col-sm-6">
+              <input type="text" class="datepicker" id=<%=modalID + "scheduleDate"%> value=<%=i.attributes.date%>>
+            </div>
+            <br>
+            <br>
+          </div>
+          <div class="row">       
+            <div class="col-xs-5 col-sm-5">            
+              <label>Hora</label>
+            </div> 
+            <div class="col-xs-4 col-sm-4">
+              <input type="number" class=<%=modalID + "scheduleHour"%> min="8" max="18" value=<%=i.attributes.hour%>></input> 
+            </div>
+            <br>
+            <br>
+          </div>
+        </div>  
+        <div class="modal-footer">        
+          <button type="button" class="btn btn-default closeModal" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary saveEdit" value=<%=modalID%> id=<%=i.attributes._id+"ID"%>>Editar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<%modalID++;});%>
+
+<script type="text/javascript">
+  // When the document is ready
+  $(document).ready(function () {
+      
+    $( ".glyphicon-plus" ).tooltip();
+
+    $( ".glyphicon-pencil" ).tooltip();
+
+    $( ".glyphicon-remove" ).tooltip();
+  
+  });
+</script>

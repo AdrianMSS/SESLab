@@ -1,0 +1,38 @@
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-header">
+    <a href="#home" class="navbar-brand">Administrar Curso - Inscritos</a>
+  </div>
+</div><!-- /.container -->
+<div class="row col-xs-12 center">
+  <h3>Estudiantes Inscritos</h3>
+  <br>
+  <%_.each(schedules, function(i) {
+    var student = signed.filter(function ( obj ) {
+        return parseInt(i.type) === parseInt(obj.type);
+    });%>
+    <h4><%=i.name%></h4>
+    <div class="tableDiv">
+      <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp">
+        <thead>
+          <tr>
+            <th class="mdl-data-table__cell--non-numeric">Fecha</th>
+            <th>Hora</th>
+            <th>Estudiante</th>
+            <th>Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%_.each(student, function(e) {%>
+            <tr>
+              <td><%=e.date%></td>
+              <td><%=e.hour + ":00"%></td>
+              <td><%=students[e.user].name%></td>
+              <td><%=students[e.user].mail%></td>
+            </tr>
+          <%});%>
+        </tbody>
+      </table>
+      <br><br>
+    </div>
+  <%});%>
+</div>

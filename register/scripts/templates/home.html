@@ -1,0 +1,75 @@
+<div class="navbar navbar-fixed-top navbar-inverse">
+  <div class="navbar-header">
+    <a href="#home" class="navbar-brand">Inscribirse a Curso</a>
+  </div>
+  <a href="#logout" class="navbar-brand" style="float:right;">Salir</a>
+</div><!-- /.container -->
+
+<div class="container" id="homeDiv">
+	<div class="row centered">
+		<h3>Bienvenido al sistema de inscripción de módulos prácticos, <%=student.name%></h3>
+		<h4 style="text-align:justify; margin-right:18%; margin-left:18%;">A continuación se muestran los módulos prácticos disponibles en los cuales se puede inscribir. Seleccione la fecha y hora que desea.</h4>
+	</div><!-- row -->
+	<div class="contentDiv row centered">
+		<% var modalId = 0, rowDiv = 0;
+		 _.each(models, function(i) {
+     		var checked = signed[i.attributes.type][i.attributes.date][i.attributes.hour].checked,
+     		disabled = ((signed[i.attributes.type][i.attributes.date][i.attributes.hour].signed == signed[i.attributes.type][i.attributes.date][i.attributes.hour].quantity) && (!(signed[i.attributes.type][i.attributes.date][i.attributes.hour].checked)));
+         	if(modalId === 0){modalId = i.attributes.type; rowDiv++;%>
+				<div class="col-sm-5 divMod">
+					<label>Módulo: <%=i.attributes.name%></label><br><br>
+					<b>&nbsp&nbsp&nbsp&nbspFecha - Hora</b><br>
+					<%if(disabled){%>
+						<div class="inputSchedule">
+							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+						</div>
+					<%}else{%>
+						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%>> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+					<%}%>
+					<br>
+			<% }else if (modalId != i.attributes.type){modalId = i.attributes.type;
+				if(rowDiv%2==0){%>
+					</div></div><div class="contentDiv row centered"><div class="col-sm-5 divMod">
+				<% }else{%>
+					</div><div class="col-sm-5 divMod">
+				<% }
+				 rowDiv++;%>
+					<label>Módulo: <%=i.attributes.name%></label><br><br>
+					<b>&nbsp&nbsp&nbsp&nbspFecha - Hora</b><br>
+					<%if(disabled){%>
+						<div class="inputSchedule">
+							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+						</div>
+					<%}else{%>
+						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> > <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+					<%}%>
+					<br>
+			<% }else{%>
+				<%if(disabled){%>
+						<div class="inputSchedule">
+							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+						</div>
+					<%}else{%>
+						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> > <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+					<%}%>
+					<br>
+			<% }%>
+        <%});%>
+        </div>
+    </div>
+    <div class="row centered">
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="signStudent">
+        	inscripcion
+      	</button>
+	</div>
+</div>
+
+<script type="text/javascript">
+  // When the document is ready
+  $(document).ready(function () {
+      
+    $('.glyphicon').tooltip();
+    $('.inputSchedule').tooltip({'trigger':'hover', 'title': 'No hay campos disponibles', 'placement':'right'});
+  
+  });
+</script>
