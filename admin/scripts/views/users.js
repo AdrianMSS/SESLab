@@ -47,6 +47,7 @@ define([
       UsersCollection.fetch({
         beforeSend: setHeader,
         success: function(res){
+          console.log(res);
           that.render();
         },
         error: function(res){

@@ -64,10 +64,11 @@ exports.removeSchedule = function(req, res) {
 
 //CRUD Usuarios
 exports.getUsers = function(req,res) {
-    db.collection('Users').find({}).toArray(function(err, doc){
+    res.send(200, {doc:"hola"});
+    /*db.collection('Users').find({}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
-    })
+    })*/
 }
 
 exports.newUsers = function(req, res) {
