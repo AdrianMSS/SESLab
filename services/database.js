@@ -11,6 +11,7 @@ var mongo = require('mongodb'),
 var uristring = 
   process.env.MONGODB_URI || 
   process.env.MONGOHQ_URL || 
+  process.env.MONGOLAB_URI||
   'mongodb://localhost/SESLab-Curso';
 
 
@@ -64,7 +65,7 @@ exports.removeSchedule = function(req, res) {
 
 //CRUD Usuarios
 exports.getUsers = function(req,res) {
-    res.send(200, {doc:"hola"});
+    res.send(200, {doc:uristring});
     /*db.collection('Users').find({}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
