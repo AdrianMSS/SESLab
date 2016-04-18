@@ -65,7 +65,7 @@ exports.removeSchedule = function(req, res) {
 
 //CRUD Usuarios
 exports.getUsers = function(req,res) {
-    res.send(200, {doc:uristring});
+    res.send(200, {doc:db});
     /*db.collection('Users').find({}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
