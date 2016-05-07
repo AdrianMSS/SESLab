@@ -28,7 +28,6 @@ define([
     render: function() { 
       var  student =  amplify.store('Student'),
         signed = this.signedObj;
-      console.log(signed);
       this.$el.html('').hide().fadeIn().slideDown('slow');
       this.$el.append(this.home_template({models:ScheduleCollection.models, signed:signed, student:student}));
       this.bind();
@@ -67,7 +66,6 @@ define([
         student =  amplify.store('Student')._id,
         schedules = {};
       _.each(ScheduleCollection.models, function(model){
-        if(model.attributes.time)console.log(model.attributes);
         if(signed[model.attributes.type] === undefined){
           signed[model.attributes.type] = {};
           schedules[model.attributes.type] = {name:model.attributes.name};
@@ -92,7 +90,6 @@ define([
         var state = (student === model.attributes.user);
         signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour].signed = signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour].signed+1;
         if(state){
-          console.log(1);
           signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour].checked = true;
         }
       });

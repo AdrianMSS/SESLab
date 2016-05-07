@@ -118,6 +118,7 @@ define([
           'quantity': scheduleQuantity,
           'date': scheduleDate,
           'hour': scheduleHour,
+          'time': scheduleTime,
           '_id': scheduleID
         }),
         beforeSend : setHeader,

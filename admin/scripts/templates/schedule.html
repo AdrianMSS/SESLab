@@ -212,7 +212,7 @@ _.each(models, function(i) {%>
               <label>Hora</label>
             </div> 
             <div class="col-xs-4 col-sm-4">
-              <input type="number" class=<%=modalID + "scheduleHour"%> min="8" max="18" value=<%=i.attributes.hour%>></input>
+              <input type="number" class=<%=modalID + "scheduleHour"%> value=<%=i.attributes.hour%>></input>
               <select class=<%=modalID + "scheduleTime"%>>
                 <option value=1 <%if(i.attributes.time === 1){%>  selected="selected" <%}%>>AM</option>
                 <option value=2 <%if(i.attributes.time === 2){%>  selected="selected" <%}%>>PM</option>

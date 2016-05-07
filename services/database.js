@@ -153,7 +153,6 @@ exports.studentsSign = function(req, res) {
                     user = parseInt(req.body.student),
                     signedArray = [req.body.schedules[type].name, date, hour+':00'],
                     resource = {type:type, date:date, hour:hour, user:user, time:time, _id:0};
-                console.log(resource);
                 if(time === 1){
                     var timeHour = ' am';
                 }
