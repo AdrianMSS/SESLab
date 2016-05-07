@@ -22,10 +22,10 @@
           </tr>
         </thead>
         <tbody>
-          <%_.each(student, function(e) {%>
+          <%_.each(student, function(e) {if(e.time === 1){var timeSchedule = " am";}else{var timeSchedule = " pm";}%>
             <tr>
               <td><%=e.date%></td>
-              <td><%=e.hour + ":00"%></td>
+              <td><%=e.hour + ":00" + timeSchedule%></td>
               <td><%=students[e.user].name%></td>
               <td><%=students[e.user].mail%></td>
             </tr>

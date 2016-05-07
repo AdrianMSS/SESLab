@@ -120,7 +120,7 @@ exports.loginUser = function(req, res) {
 }
 
 exports.studentsSchedule = function(req, res) {
-    db.collection('Schedule').find({}).sort({"type":1,"date":1,"hour":1}).toArray(function(err, doc){
+    db.collection('Schedule').find({}).sort({"type":1,"date":1,"time":1,"hour":1}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
     })
@@ -133,7 +133,7 @@ exports.studentsInfo = function(req, res) {
 }
 
 exports.studentsSigned = function(req, res) {
-    db.collection('Signed').find({}).sort({"type":1,"date":1,"hour":1}).toArray(function(err, doc){
+    db.collection('Signed').find({}).sort({"type":1,"date":1,"time":1,"hour":1}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
     })
@@ -147,11 +147,20 @@ exports.studentsSign = function(req, res) {
         else{
             req.body.signed.forEach(function(element, index){
                 var type = parseInt(element.split('D')[0]),
-                    date = element.split('D')[1].split('H')[0],
+                    date = element.split('D')[1].split('T')[0],
+                    time = parseInt(element.split('T')[1].split('H')[0]),
                     hour = parseInt(element.split('H')[1]),
                     user = parseInt(req.body.student),
                     signedArray = [req.body.schedules[type].name, date, hour+':00'],
-                    resource = {type:type, date:date, hour:hour, user:user, _id:0};
+                    resource = {type:type, date:date, hour:hour, user:user, time:time, _id:0};
+                console.log(resource);
+                if(time === 1){
+                    var timeHour = ' am';
+                }
+                else{
+                    var timeHour = ' pm';
+                }
+                signedArray.push(timeHour);
                 dateArray.push(signedArray);
                 db.collection('Ids').findAndModify({_id:1},{},{$inc:{signed:1}},function(err, doc_ids) {
                     if(err) {throw err;res.send(400, err);};
@@ -163,7 +172,7 @@ exports.studentsSign = function(req, res) {
             });
             var mailText = "Inscripción a los módulos prácticos realizada correctamente. Los horarios seleccionados son:<br><br>";
             dateArray.forEach(function(signed){
-                mailText += '<b>' + signed[0] + "</b> el " + signed[1] + " a las " + signed [2] +".<br>";
+                mailText += '<b>' + signed[0] + "</b> el " + signed[1] + " a las " + signed [2] + signed[3] +".<br>";
             });
             mailText += "<br>Le agradecemos su puntualidad a las sesiones prácticas.<br><br>Saludos.";
             var mailOptions = {
@@ -198,7 +207,7 @@ exports.scheduleSigned = function(req, res) {
             doc_res.forEach(function(element, index){
                 schedules[element._id.type] = element._id;
             });
-            db.collection('Signed').find({}).sort({"type":1,"date":1,"hour":1}).toArray(function(err2, doc2){
+            db.collection('Signed').find({}).sort({"type":1,"date":1,"time":1,"hour":1}).toArray(function(err2, doc2){
                 if(err2) res.send(400, err2);
                 var students = {};
                 db.collection('Users').find({}).toArray(function(err3, doc3){

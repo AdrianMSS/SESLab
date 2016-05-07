@@ -12,19 +12,19 @@
 	</div><!-- row -->
 	<div class="contentDiv row centered">
 		<% var modalId = 0, rowDiv = 0;
-		 _.each(models, function(i) {
-     		var checked = signed[i.attributes.type][i.attributes.date][i.attributes.hour].checked,
-     		disabled = ((signed[i.attributes.type][i.attributes.date][i.attributes.hour].signed == signed[i.attributes.type][i.attributes.date][i.attributes.hour].quantity) && (!(signed[i.attributes.type][i.attributes.date][i.attributes.hour].checked)));
+		 _.each(models, function(i) {if(i.attributes.time === 1){var timeSchedule = " am";}else{var timeSchedule = " pm";}
+     		var checked = signed[i.attributes.type][i.attributes.date][i.attributes.time][i.attributes.hour].checked,
+     		disabled = ((signed[i.attributes.type][i.attributes.date][i.attributes.time][i.attributes.hour].signed == signed[i.attributes.type][i.attributes.date][i.attributes.time][i.attributes.hour].quantity) && (!(signed[i.attributes.type][i.attributes.date][i.attributes.time][i.attributes.hour].checked)));
          	if(modalId === 0){modalId = i.attributes.type; rowDiv++;%>
 				<div class="col-sm-5 divMod">
 					<label>Módulo: <%=i.attributes.name%></label><br><br>
 					<b>&nbsp&nbsp&nbsp&nbspFecha - Hora</b><br>
 					<%if(disabled){%>
 						<div class="inputSchedule">
-							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"T"+i.attributes.time+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00" + timeSchedule%>
 						</div>
 					<%}else{%>
-						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%>> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"T"+i.attributes.time+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%>> <%=i.attributes.date+" - "+i.attributes.hour+":00" + timeSchedule%>
 					<%}%>
 					<br>
 			<% }else if (modalId != i.attributes.type){modalId = i.attributes.type;
@@ -38,19 +38,19 @@
 					<b>&nbsp&nbsp&nbsp&nbspFecha - Hora</b><br>
 					<%if(disabled){%>
 						<div class="inputSchedule">
-							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"T"+i.attributes.time+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00" + timeSchedule%>
 						</div>
 					<%}else{%>
-						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> > <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"T"+i.attributes.time+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> > <%=i.attributes.date+" - "+i.attributes.hour+":00" + timeSchedule%>
 					<%}%>
 					<br>
 			<% }else{%>
 				<%if(disabled){%>
 						<div class="inputSchedule">
-							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+							<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"T"+i.attributes.time+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> disabled> <%=i.attributes.date+" - "+i.attributes.hour+":00" + timeSchedule%>
 						</div>
 					<%}else{%>
-						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> > <%=i.attributes.date+" - "+i.attributes.hour+":00"%>
+						<input type="radio" name=<%=i.attributes.type%> value=<%=i.attributes.type+"D"+i.attributes.date+"T"+i.attributes.time+"H"+i.attributes.hour%> <%if(checked){%>checked<%}%> > <%=i.attributes.date+" - "+i.attributes.hour+":00" + timeSchedule%>
 					<%}%>
 					<br>
 			<% }%>

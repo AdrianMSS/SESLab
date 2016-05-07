@@ -67,26 +67,33 @@ define([
         student =  amplify.store('Student')._id,
         schedules = {};
       _.each(ScheduleCollection.models, function(model){
+        if(model.attributes.time)console.log(model.attributes);
         if(signed[model.attributes.type] === undefined){
           signed[model.attributes.type] = {};
           schedules[model.attributes.type] = {name:model.attributes.name};
           signed[model.attributes.type][model.attributes.date] = {};
-          signed[model.attributes.type][model.attributes.date][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
+          signed[model.attributes.type][model.attributes.date][model.attributes.time] = {};
+          signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
         }
         else if(signed[model.attributes.type][model.attributes.date] === undefined){
           signed[model.attributes.type][model.attributes.date] = {};
-          signed[model.attributes.type][model.attributes.date][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
+          signed[model.attributes.type][model.attributes.date][model.attributes.time] = {};
+          signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
         }
-        else if(signed[model.attributes.type][model.attributes.date][model.attributes.hour] === undefined){
-          signed[model.attributes.type][model.attributes.date][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
+        else if(signed[model.attributes.type][model.attributes.date][model.attributes.time] === undefined){
+          signed[model.attributes.type][model.attributes.date][model.attributes.time] = {};
+          signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
+        }
+        else if(signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour] === undefined){
+          signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour] = {quantity:model.attributes.quantity, signed:0, checked:false};
         }
       });
       _.each(SignedCollection.models, function(model){
         var state = (student === model.attributes.user);
-        signed[model.attributes.type][model.attributes.date][model.attributes.hour].signed = signed[model.attributes.type][model.attributes.date][model.attributes.hour].signed+1;
+        signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour].signed = signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour].signed+1;
         if(state){
           console.log(1);
-          signed[model.attributes.type][model.attributes.date][model.attributes.hour].checked = true;
+          signed[model.attributes.type][model.attributes.date][model.attributes.time][model.attributes.hour].checked = true;
         }
       });
       that.signedObj = signed;

@@ -66,7 +66,8 @@ define([
         scheduleType = parseInt($( '.scheduleType' ).val()),
         scheduleQuantity = parseInt($( '.scheduleQuantity' ).val()),
         scheduleDate = $( '#scheduleDate' ).val(),
-        scheduleHour = parseInt($( '.scheduleHour' ).val());
+        scheduleHour = parseInt($( '.scheduleHour' ).val()),
+        scheduleTime = parseInt($( '.scheduleTime' ).val());
       $.ajax({ 
         url: 'schedule',
         type: 'POST',
@@ -77,7 +78,8 @@ define([
           'type' : scheduleType,
           'quantity' : scheduleQuantity,
           'date' : scheduleDate,
-          'hour' : scheduleHour
+          'hour' : scheduleHour,
+          'time' : scheduleTime
         }),
         beforeSend : setHeader,
         complete: function(res){
@@ -103,6 +105,7 @@ define([
       scheduleQuantity = parseInt($( '.'+e.currentTarget.value+'scheduleQuantity' ).val()),
       scheduleDate = $( '#'+e.currentTarget.value+'scheduleDate' ).val(),
       scheduleHour = parseInt($( '.'+e.currentTarget.value+'scheduleHour' ).val()),
+      scheduleTime = parseInt($( '.'+e.currentTarget.value+'scheduleTime' ).val()),
       scheduleID = parseInt(e.currentTarget.id.split('I')[0]);
       $.ajax({ 
         url: 'schedule',
