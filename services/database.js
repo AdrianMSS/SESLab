@@ -29,10 +29,12 @@ mongo.MongoClient.connect(uristring, function(err, database) {
 
 //CRUD Administrador
 exports.getSchedule = function(req,res) {
-    db.collection('Schedule').find({}).toArray(function(err, doc){
+    console.log(uristring);
+    res.send(200, uristring);
+    /*db.collection('Schedule').find({}).toArray(function(err, doc){
         if(err) res.send(400, err);
         res.send(200, doc);
-    })
+    })*/
 }
 
 exports.newSchedule = function(req, res) {
